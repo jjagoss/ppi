@@ -2,7 +2,8 @@ from pathlib import Path
 from typing import Optional
 
 from src.ppi.core.ppi_data_manager import PPIDataManager
-
+from src.ppi.core.utils.download_metadata import download_ppi_metadata
+from src.ppi.core.utils.download_series_data import download_ppi_commodity_data
 
 def initialize_ppi_database(data_dir: Optional[str]) -> PPIDataManager:
     """
@@ -25,8 +26,8 @@ def initialize_ppi_database(data_dir: Optional[str]) -> PPIDataManager:
 
     manager = PPIDataManager(str(db_path))
 
-    series_data = download_series_data()
-    metadata = download_metadata()
+    series_data = download_ppi_commodity_data()
+    metadata = download_ppi_metadata()
 
     manager.update_data(series_data, metadata)
 
