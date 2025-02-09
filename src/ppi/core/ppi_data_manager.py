@@ -31,7 +31,7 @@ class PPIDataManager:
             # Create tables for series metadata
             cursor.execute("""
             CREATE TABLE IF NOT EXISTS series_metadata (
-                series_id TEXT PRIMARY KEY,,
+                series_id TEXT PRIMARY KEY,
                 group_code TEXT,
                 item_code TEXT
                 seasonal TEXT

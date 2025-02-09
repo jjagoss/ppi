@@ -5,6 +5,7 @@ from src.ppi.core.ppi_data_manager import PPIDataManager
 from src.ppi.core.utils.download_metadata import download_ppi_metadata
 from src.ppi.core.utils.download_series_data import download_ppi_commodity_data
 
+
 def initialize_ppi_database(data_dir: Optional[str]) -> PPIDataManager:
     """
     Initialize the PPI database with initial data download.
