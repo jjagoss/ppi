@@ -2,6 +2,7 @@ import pytest
 import pandas as pd
 
 from src.ppi.core.ppi_data_manager import PPIDataManager
+from src.ppi.core.utils.download_metadata import PPIMetaDataDownloader
 
 
 @pytest.fixture
@@ -39,6 +40,23 @@ def sample_metadata():
 
 
 @pytest.fixture
+def sample_raw_metadata():
+    """Create sample metadata in the format we expect from BLS."""
+    return pd.DataFrame({
+        'series_id': ['WPS0111  '],  # Note extra spaces
+        'group_code': ['01  '],
+        'item_code': ['11  '],
+        'seasonal': ['S  '],
+        'base_date': ['198200  '],
+        'series_title': ['Farm products-Fresh fruits and melons  '],
+        'begin_year': [2023],
+        'begin_period': ['M01  '],
+        'end_year': [2023],
+        'end_period': ['M12  ']
+    })
+
+
+@pytest.fixture
 def db_manager(tmp_path):
     """
     Create a temporary database manager for testing.
@@ -46,3 +64,11 @@ def db_manager(tmp_path):
     """
     db_path = tmp_path / 'test_ppi.db'
     return PPIDataManager(db_path)
+
+
+@pytest.fixture
+def downloader(tmp_path):
+    """
+    Create a downloader instance with a temporary cache directory
+    """
+    return PPIMetaDataDownloader(cache_dir=str(tmp_path))

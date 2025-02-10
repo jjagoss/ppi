@@ -2,6 +2,7 @@ import pandas as pd
 from typing import Optional, Dict, Any
 import logging
 from pathlib import Path
+import pandera as pa
 from src.ppi.db_models.metadata import Metadata
 
 
@@ -89,10 +90,13 @@ class PPIMetaDataDownloader:
 
         return metadata_df
 
-    @staticmethod
-    def _validate_metadata(metadata_df: pd.DataFrame) -> dict[str, Any]:
-        valid_metadata = Metadata(**metadata_df).model_dump()
-        return valid_metadata
+    def _validate_metadata(self, metadata_df: pd.DataFrame) -> dict[str, Any]:
+        try:
+            valid_metadata = Metadata.validate(metadata_df)
+            return valid_metadata
+
+        except pa.errors.SchemaError as e:
+            self.logger.error(f"Failed to validate metadata: {e}")
 
 
 def download_ppi_metadata(cache_dir: Optional[str] = None) -> pd.DataFrame:
