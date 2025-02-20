@@ -1,7 +1,9 @@
 import pytest
 import pandas as pd
 
+from src.ppi.core.ppi_analyzer import PPIAnalyzer
 from src.ppi.core.ppi_data_manager import PPIDataManager
+from src.ppi.core.ppi_visualizer import PPIVisualizer
 from src.ppi.core.utils.download_metadata import PPIMetaDataDownloader
 
 
@@ -70,6 +72,43 @@ def analysis_data():
 
 
 @pytest.fixture
+def visualization_data():
+    dates = pd.date_range(start='2022-01-01', period=24, freq='M')
+
+    values = [100]
+    for i in range(1, 24):
+        month = (i % 12) + 1
+        seasonal = 2 if month in [1, 2, 11, 12] else 0
+        change = 0.005 + seasonal/100
+        values.append(values[-1] * (1 + change))
+
+    return pd.DataFrame({
+        'series_id': ['WPS0111'] * 24,
+        'year': [d.year for d in dates],
+        'period': [f'M{d.month:02d}' for d in dates],
+        'value': values,
+        'footnote_codes': [''] * 24
+    })
+
+
+@pytest.fixture
+def visualization_metadata():
+    """Create sample metadata."""
+    return pd.DataFrame({
+        'series_id': ['WPS0111', 'WPS0112'],
+        'group_code': ['01', '01'],
+        'item_code': ['11', '12'],
+        'seasonal': ['S', 'S'],
+        'base_date': ['198200', '198200'],
+        'series_title': ['Fresh fruits', 'Fresh vegetables'],
+        'begin_year': [2022, 2022],
+        'begin_period': ['M01', 'M01'],
+        'end_year': [2023, 2023],
+        'end_period': ['M12', 'M12']
+    })
+
+
+@pytest.fixture
 def db_manager(tmp_path):
     """
     Create a temporary database manager for testing.
@@ -88,12 +127,26 @@ def downloader(tmp_path):
 
 
 @pytest.fixture
-def mock_data_manager(analysis_data):
+def mock_data_manager(analysis_data, visualization_metadata):
     class MockDataManager:
         def __init__(self, data):
             self.data = data
 
-        def get_series_data(self, series_id):
-            return self.data
+        def get_series_data(self, series_id, start_year=None, end_year=None):
+            data = analysis_data.copy()
+            if start_year:
+                data = data[data['year'] >= start_year]
+            if end_year:
+                data = data[data['year'] <= end_year]
+            return data
+
+        def get_series_metadata(self, series_id):
+            return visualization_metadata[visualization_metadata['series_id'] == series_id]
 
     return MockDataManager(analysis_data)
+
+
+@pytest.fixture
+def visualizer(mock_data_manager):
+    analyzer = PPIAnalyzer(mock_data_manager)
+    return PPIVisualizer(mock_data_manager, analyzer)
