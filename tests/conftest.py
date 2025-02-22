@@ -140,7 +140,7 @@ def mock_data_manager(analysis_data, visualization_metadata):
                 data = data[data['year'] <= end_year]
             return data
 
-        def get_series_metadata(self, series_id):
+        def get_series_metadata(self, series_id=None):
             return visualization_metadata[visualization_metadata['series_id'] == series_id]
 
     return MockDataManager(analysis_data)

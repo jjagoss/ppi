@@ -15,6 +15,7 @@ pydantic = "^2.10.6"
 pandera = "^0.22.1"
 matplotlib = "^3.10.0"
 pytest-mock = "^3.14.0"
+fuzzywuzzy = "^0.18.0"
 
 [project.optional-dependencies]
 dev = [
