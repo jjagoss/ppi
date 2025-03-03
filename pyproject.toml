@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ppi"
+name = "ppi-toolkit"
 version = "0.1.0"
 description = "A toolkit for working with Producer Price Index (PPI) data"
 authors = ["justin <justinjagoss@gmail.com>"]
