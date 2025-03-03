@@ -4,7 +4,7 @@ from typing import Optional, Any
 
 import pandas as pd
 
-from src.ppi.db_models.commodity_data import CommodityData
+from ppi.db_models.commodity_data import CommodityData
 
 
 class PPISeriesDataDownloader:

@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 from pathlib import Path
 
-from src.ppi.core.ppi_visualizer import PPIVisualizer
-from src.ppi.core.ppi_analyzer import PPIAnalyzer
+from ppi.core.ppi_visualizer import PPIVisualizer
+from ppi.core.ppi_analyzer import PPIAnalyzer
 
 
 class TestPPIVisualizer:

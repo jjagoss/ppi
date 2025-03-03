@@ -1,7 +1,7 @@
 import pandas as pd
 from unittest.mock import MagicMock, patch
-from src.ppi.core.utils.download_metadata import PPIMetaDataDownloader
-from src.ppi.core.utils.download_series_data import PPISeriesDataDownloader
+from ppi.core.utils.download_metadata import PPIMetaDataDownloader
+from ppi.core.utils.download_series_data import PPISeriesDataDownloader
 
 
 class TestPPPIMetaDataDownloader:

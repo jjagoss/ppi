@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from src.ppi.core.ppi_analyzer import PPIAnalyzer
+from ppi.core.ppi_analyzer import PPIAnalyzer
 
 
 class TestPPIAnalyzer:

@@ -3,7 +3,7 @@ from typing import Optional, Dict, Any
 import logging
 from pathlib import Path
 import pandera as pa
-from src.ppi.db_models.metadata import Metadata
+from ppi.db_models.metadata import Metadata
 
 
 class PPIMetaDataDownloader:

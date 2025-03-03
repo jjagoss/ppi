@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from src.ppi.core.ppi_searcher import PPISearcher
+from ppi.core.ppi_searcher import PPISearcher
 
 
 class TestPPISearcher:
