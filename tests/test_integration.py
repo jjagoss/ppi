@@ -2,7 +2,7 @@
 # import pandas as pd
 # from unittest.mock import patch
 #
-# from src.ppi.core.initialize_db import initialize_ppi_database
+# from ppi.core.initialize_db import initialize_ppi_database
 #
 #
 # class TestPPIIntegration:

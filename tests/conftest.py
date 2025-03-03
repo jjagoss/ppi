@@ -1,10 +1,10 @@
 import pytest
 import pandas as pd
 
-from src.ppi.core.ppi_analyzer import PPIAnalyzer
-from src.ppi.core.ppi_data_manager import PPIDataManager
-from src.ppi.core.ppi_visualizer import PPIVisualizer
-from src.ppi.core.utils.download_metadata import PPIMetaDataDownloader
+from ppi.core.ppi_analyzer import PPIAnalyzer
+from ppi.core.ppi_data_manager import PPIDataManager
+from ppi.core.ppi_visualizer import PPIVisualizer
+from ppi.core.utils.download_metadata import PPIMetaDataDownloader
 
 
 @pytest.fixture
