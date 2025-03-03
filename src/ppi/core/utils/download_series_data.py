@@ -79,14 +79,44 @@ class PPISeriesDataDownloader:
             raise
 
     @staticmethod
-    def _process_data(commodity_df: pd.DataFrame) -> pd.DataFrame:
-        string_cols = ['series_id', 'period', 'footnote_code']
-        for col in string_cols:
+    def _process_data(self, commodity_df):
+        """
+        Clean and process the downloaded data
+
+        Args:
+            commodity_df: The raw data from BLS
+
+        Returns:
+            Processed dataframe
+        """
+        # Strip whitespace from string columns
+        for col in ['series_id', 'period', 'footnote_codes']:
             if col in commodity_df.columns:
                 commodity_df[col] = commodity_df[col].str.strip()
 
-        commodity_df['series_date'] = pd.to_datetime(commodity_df['year'].astype(str) + '-' +
-                                                     commodity_df['period'].str[1:] + '-01')
+        # Handle date conversion - filter to valid months only (M01-M12)
+        valid_months_mask = commodity_df['period'].str.match(r'M(0[1-9]|1[0-2])$')
+
+        # For valid month entries, create datetime
+        commodity_df.loc[valid_months_mask, 'series_date'] = pd.to_datetime(
+            commodity_df.loc[valid_months_mask, 'year'].astype(str) + '-' +
+            commodity_df.loc[valid_months_mask, 'period'].str[1:] + '-01'
+        )
+
+        # For non-standard periods (like M13), use a different approach
+        # Set to the last day of the year or another convention
+        non_standard_mask = ~valid_months_mask
+        if non_standard_mask.any():
+            commodity_df.loc[non_standard_mask, 'series_date'] = pd.to_datetime(
+                commodity_df.loc[non_standard_mask, 'year'].astype(str) + '-12-31'
+            )
+
+            # Log the special periods
+            self.logger.info(
+                f"Found {non_standard_mask.sum()} records with non-standard periods. "
+                "These have been assigned end-of-year dates."
+            )
+
         return commodity_df
 
     @staticmethod
