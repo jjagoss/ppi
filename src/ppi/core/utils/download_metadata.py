@@ -1,3 +1,5 @@
+import io
+
 import pandas as pd
 from typing import Optional, Dict, Any
 import logging
@@ -50,9 +52,25 @@ class PPIMetaDataDownloader:
             - end_year/period: End of data coverage
         """
         try:
-            metadata_df = pd.read_csv(
+            headers = {
+                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; contact@example.com)',
+                'Accept': 'text/plain, text/html, */*'
+            }
+
+            self.logger.info("Downloading metadata from BLS...")
+            response = requests.get(
                 "https://download.bls.gov/pub/time.series/wp/wp.series",
-                deliter='\t',
+                headers=headers,
+                timeout=30
+            )
+
+            # Raise exception for bad status codes
+            response.raise_for_status()
+
+            # Parse the response
+            metadata_df = pd.read_csv(
+                io.StringIO(response.text),
+                delimiter='\t',  # Fixed typo: was "deliter"
                 dtype={
                     'series_id': str,
                     'group_code': str,

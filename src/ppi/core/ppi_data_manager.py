@@ -10,7 +10,7 @@ class PPIDataManager:
     Handles initial setup and periodic updates of the database.
     """
 
-    def __init__(self, db_path: "ppi_data.db"):
+    def __init__(self, db_path: Path = Path("ppi_data.db")):
         """
         InInitialize the data manager with a specified database path.
 

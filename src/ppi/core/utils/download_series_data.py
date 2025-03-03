@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 from typing import Optional, Any
 
+import io
 import pandas as pd
 
 from ppi.db_models.commodity_data import CommodityData
@@ -42,8 +43,24 @@ class PPISeriesDataDownloader:
         """
 
         try:
-            commodity_df = pd.read_csv(
+            headers = {
+                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; contact@example.com)',
+                'Accept': 'text/plain, text/html, */*'
+            }
+
+            # Make the request with timeout and proper headers
+            response = requests.get(
                 "https://download.bls.gov/pub/time.series/wp/wp.data.1.AllCommodities",
+                headers=headers,
+                timeout=30  # Set a reasonable timeout
+            )
+
+            # Raise an exception for bad status codes
+            response.raise_for_status()
+
+            # Parse the content as a CSV using pandas
+            commodity_df = pd.read_csv(
+                io.StringIO(response.text),
                 delimiter='\t',
                 dtype={
                     'series_id': str,
