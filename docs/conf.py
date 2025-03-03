@@ -1,6 +1,6 @@
-project = 'my-ppi-package'
-copyright = '2024, Your Name'
-author = 'Your Name'
+project = 'ppi'
+copyright = '2024, Justin Goss'
+author = 'Justin Goss'
 
 extensions = [
     'sphinx.ext.autodoc',
