@@ -54,8 +54,7 @@ class PPIMetaDataDownloader:
         """
         try:
             headers = {
-                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; justinjagoss@gmail.com)',
-                'Accept': 'text/plain, text/html, */*'
+                'User-Agent': 'justinjagoss@gmail.com'
             }
 
             self.logger.info("Downloading metadata from BLS...")
