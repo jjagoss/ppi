@@ -4,6 +4,7 @@ from typing import Optional, Any
 
 import io
 import pandas as pd
+import requests
 
 from ppi.db_models.commodity_data import CommodityData
 
@@ -44,7 +45,7 @@ class PPISeriesDataDownloader:
 
         try:
             headers = {
-                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; contact@example.com)',
+                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; justinjagoss@gmail.com)',
                 'Accept': 'text/plain, text/html, */*'
             }
 

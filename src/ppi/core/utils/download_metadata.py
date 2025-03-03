@@ -5,6 +5,7 @@ from typing import Optional, Dict, Any
 import logging
 from pathlib import Path
 import pandera as pa
+import requests
 from ppi.db_models.metadata import Metadata
 
 
@@ -53,7 +54,7 @@ class PPIMetaDataDownloader:
         """
         try:
             headers = {
-                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; contact@example.com)',
+                'User-Agent': 'ppi-toolkit/0.1.2 (https://github.com/jjagoss/ppi; justinjagoss@gmail.com)',
                 'Accept': 'text/plain, text/html, */*'
             }
 
