@@ -1,44 +1,50 @@
 [tool.poetry]
 name = "ppi"
 version = "0.1.0"
-description = ""
+description = "A toolkit for working with Producer Price Index (PPI) data"
 authors = ["justin <justinjagoss@gmail.com>"]
 readme = "README.md"
+packages = [{include = "ppi", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
 pandas = "^2.2.3"
 requests = "^2.32.3"
 pydantic = "^2.10.6"
 pandera = "^0.22.1"
 matplotlib = "^3.10.0"
-pytest-mock = "^3.14.0"
 fuzzywuzzy = "^0.18.0"
-setuptools = "^75.8.0"
 numpy = "^1.23"
 sqlalchemy = "^2.0.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+pytest-mock = "^3.14.0"
+black = "^23.0.0"
+isort = "^5.10.0"
+mypy = "^1.0.0"
+ruff = "^0.1.0"
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0",
-    "black>=22.0",
-    "isort>=5.0",
-    "mypy>=1.0",
-    "ruff>=0.1.0",
-]
-docs = [
-    "sphinx>=7.0",
-    "sphinx-rtd-theme>=1.0",
-]
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.0"
+sphinx-rtd-theme = "^1.0"
 
-[project.urls]
-Homepage = "https://github.com/jjagoss/ppi"
-Documentation = "https://ppi.readthedocs.io"
-
+[tool.poetry.scripts]
+ppi-toolkit = "ppi.cli.commands:main"
 
 [build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
