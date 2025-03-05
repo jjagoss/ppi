@@ -1,4 +1,4 @@
-from search import PPISearcher
+from ppi_toolkit.search import PPISearcher
 
 
 def test_ppi_searcher(temp_db):
