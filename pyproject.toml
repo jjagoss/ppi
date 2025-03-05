@@ -8,6 +8,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+rapidfuzz = "^3.12.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0"
