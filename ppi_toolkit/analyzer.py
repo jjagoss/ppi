@@ -2,6 +2,7 @@ import os
 import sqlite3
 import datetime
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 class PPIAnalyzer:
@@ -70,3 +71,68 @@ class PPIAnalyzer:
         df.drop(["value_1m_ago", "value_3m_ago", "value_6m_ago", "value_12m_ago"], axis=1, inplace=True)
 
         return df
+
+
+    def plot_annualized_trends(df, series_id=None, title=None, show=True, save_path=None):
+        """
+        Plots the annualized 1m, 3m, 6m, and 12m changes from a DataFrame that
+        includes columns: "date", "ann_1m", "ann_3m", "ann_6m", "ann_12m".
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            The DataFrame returned by your analysis code. Should have columns:
+            "date", "ann_1m", "ann_3m", "ann_6m", "ann_12m".
+        series_id : str, optional
+            Series identifier (e.g. "WPS011101"). Used in plot labeling if provided.
+        title : str, optional
+            Custom title for the plot. Defaults to something based on the series_id.
+        show : bool, optional
+            If True, call plt.show() at the end (useful in a script/interactive session).
+            If False, the figure won't appear until you manually call plt.show().
+        save_path : str, optional
+            If provided, the plot is saved to this file path (e.g. "my_plot.png").
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            The matplotlib Figure object.
+        ax : matplotlib.axes.Axes
+            The main Axes object of the plot.
+        """
+        # Create a new figure and axes
+        fig, ax = plt.subplots(figsize=(8, 5))
+
+        # Plot each of the annualized columns if they exist in df
+        if "ann_1m" in df.columns:
+            ax.plot(df["date"], df["ann_1m"], label="1m Annualized")
+        if "ann_3m" in df.columns:
+            ax.plot(df["date"], df["ann_3m"], label="3m Annualized")
+        if "ann_6m" in df.columns:
+            ax.plot(df["date"], df["ann_6m"], label="6m Annualized")
+        if "ann_12m" in df.columns:
+            ax.plot(df["date"], df["ann_12m"], label="12m Annualized")
+
+        # Set labels, legend, and title
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Annualized % Change")
+        ax.legend()
+
+        # Create a default title if one isn't provided
+        if not title:
+            if series_id:
+                title = f"Annualized PPI Changes for {series_id}"
+            else:
+                title = "Annualized PPI Changes"
+
+        ax.set_title(title)
+
+        # Optionally save the plot
+        if save_path:
+            fig.savefig(save_path, dpi=200, bbox_inches="tight")
+
+        # Optionally show the plot (useful in scripts)
+        if show:
+            plt.show()
+
+        return fig, ax
