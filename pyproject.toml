@@ -2,7 +2,7 @@
 name = "ppi-toolkit"
 version = "0.1.0"
 description = "A Python library for retrieving, storing, and analyzing PPI data."
-authors = ["Justin Goss, justinjagoss@gmail.com"]
+authors = ["Justin Goss <justinjagoss@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
