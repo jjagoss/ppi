@@ -12,6 +12,7 @@ pandas = "^2.2.3"
 requests = "^2.32.3"
 rapidfuzz = "^3.12.2"
 pytest-cov = "^6.0.0"
+matplotlib = "^3.10.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0"
