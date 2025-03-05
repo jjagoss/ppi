@@ -52,7 +52,7 @@ db.setup_and_import_data()
 from ppi_toolkit.search import PPISearcher
 
 searcher = PPISearcher()  # Uses ~/ppi.db by default
-results = searcher.search_titles_fuzzy("steel scrap")
+results = searcher.search_titles("steel scrap")
 
 for match in results:
     print(match)
@@ -64,7 +64,7 @@ for match in results:
 
 ```
 from ppi_toolkit.joiner import PPIJoiner
-from ppi_toolkit.analysis import PPIAnnualizedTrends
+from ppi_toolkit.analyzer import PPIAnalyzer
 
 # 1. Join data from both tables
 joiner = PPIJoiner()
@@ -72,7 +72,7 @@ df_joined = joiner.get_joined_data("WPS011101")
 print(df_joined.head())
 
 # 2. Compute annualized changes
-analyzer = PPIAnnualizedTrends()
+analyzer = PPIAnalyzer()
 df_trends = analyzer.compute_annualized_changes("WPS011101", 2018, 1, 2023, 12)
 print(df_trends[["date", "value", "ann_1m", "ann_3m", "ann_6m", "ann_12m"]].tail())
 ```

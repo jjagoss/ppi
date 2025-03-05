@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ppi-toolkit"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Python library for retrieving, storing, and analyzing PPI data."
 authors = ["Justin Goss <justinjagoss@gmail.com>"]
 license = "MIT"
@@ -12,6 +12,7 @@ pandas = "^2.2.3"
 requests = "^2.32.3"
 rapidfuzz = "^3.12.2"
 pytest-cov = "^6.0.0"
+twine = "^6.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0"
