@@ -77,6 +77,24 @@ df_trends = analyzer.compute_annualized_changes("WPS011101", 2018, 1, 2023, 12)
 print(df_trends[["date", "value", "ann_1m", "ann_3m", "ann_6m", "ann_12m"]].tail())
 ```
 
+5. Plot Data
+```
+from ppi_toolkit.plotting import plot_annualized_trends
+
+df_trends = analyzer.compute_annualized_changes(
+    series_id="WPS011101",
+    start_year=2018, start_month=1,
+    end_year=2023, end_month=6
+)
+
+# 2. Plot the results
+plot_annualized_trends(
+    df_trends,
+    series_title="Iron and Steel Scrap",
+    save_path="steel_scrap.png"
+)
+```
+
 ### License
 This project is released under the MIT License. Feel free to use and modify it in personal or commercial projects, respecting the license terms.
 
