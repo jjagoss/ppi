@@ -1,5 +1,4 @@
 name: Tests
-
 on: [push, pull_request]
 
 jobs:
@@ -24,12 +23,15 @@ jobs:
         virtualenvs-create: true
         virtualenvs-in-project: true
 
-    - name: Cache Poetry cache
+    - name: Cache Poetry wheels
       uses: actions/cache@v3
       with:
         path: ~/.cache/pypoetry
         key: poetry-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
+    # Optional: remove stale venv if you want a clean slate each time
+    - name: Remove .venv
+      run: rm -rf .venv
 
     - name: Install dependencies
       run: poetry install --no-interaction
