@@ -13,7 +13,7 @@ A Python library for working with Producer Price Index (PPI) data from the Burea
 ## Installation
 
 ```bash
-pip install ppi-toolkit
+pip install ppi_toolkit-toolkit
 ```
 
 ## Quick Start

@@ -1,4 +1,4 @@
-project = 'ppi'
+project = 'ppi_toolkit'
 copyright = '2024, Justin Goss'
 author = 'Justin Goss'
 

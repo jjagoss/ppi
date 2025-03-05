@@ -36,7 +36,7 @@ jobs:
       run: poetry install --no-interaction
 
     - name: Run tests
-      run: poetry run pytest tests/ -v --cov=ppi
+      run: poetry run pytest tests/ -v --cov=ppi_toolkit
 
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
